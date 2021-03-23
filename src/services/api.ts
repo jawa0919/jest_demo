@@ -11,3 +11,12 @@ export const netConfig = async function(args?: any) {
   let path = `./config/net.json`;
   return axios.get(path);
 };
+
+export const submitForm = async function(
+  user: string,
+  password: string,
+  rememberPwd: boolean
+) {
+  let path = `./submit/form`;
+  return axios.post(path);
+};

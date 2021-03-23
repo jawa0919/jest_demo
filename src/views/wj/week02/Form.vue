@@ -9,33 +9,42 @@
   <div class="form">
     <div>
       <span>用户名：</span>
-      <input type="text" v-model="name" />
+      <input class="input-user" type="text" v-model="user" />
     </div>
     <div>
       <span>密码：</span>
-      <input type="password" v-model="password" />
+      <input class="input-password" type="password" v-model="password" />
     </div>
     <div>
       <span>记住密码：</span>
-      <input type="checkbox" v-model="rememberPwd" value="记住密码" />
+      <input
+        class="input-password-remember"
+        type="checkbox"
+        v-model="rememberPwd"
+        value="记住密码"
+      />
     </div>
     <div>
-      <button @click="submit()">提交</button>
+      <button @click="submitData">提交</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
+import { submitForm } from "@/services/api";
+import { Component, Vue } from "vue-property-decorator";
 
+@Component({})
 export default class Form extends Vue {
-  name = "";
+  user = "";
   password = "";
   rememberPwd = false;
+  submitRes = {};
 
-  private submit(): void {
-    const { name, password, rememberPwd } = this;
-    console.log("Form.submit", { name, password, rememberPwd });
+  async submitData() {
+    const { user, password, rememberPwd } = this;
+    const res = await submitForm(user, password, rememberPwd);
+    this.submitRes = res.data;
   }
 }
 </script>

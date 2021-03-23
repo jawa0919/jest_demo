@@ -27,7 +27,6 @@ describe("shallowMount和mount的区别", () => {
   it("shallowMount", () => {
     const wrapper = shallowMount(Home);
     let helloWrapper = wrapper.findComponent<Hello>({ name: "Hello" });
-    console.log(helloWrapper);
     expect(helloWrapper).toBeDefined();
   });
   it("mount", () => {

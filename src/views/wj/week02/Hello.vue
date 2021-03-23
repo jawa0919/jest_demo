@@ -20,8 +20,8 @@ export default class Hello extends Vue {
   @Prop()
   private msg!: string;
 
-  private onLog(): void {
-    console.log("Demo02HelloWorld.onLog() run");
+  private loadData(): void {
+    console.log("--------------------------------假装加载数据Hello.loadData");
   }
 
   @Emit()

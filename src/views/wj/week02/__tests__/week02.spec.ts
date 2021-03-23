@@ -15,11 +15,9 @@ jest.mock("./../../../../services/api");
 // 测试组件方法的调用；
 describe("测试组件方法的调用", () => {
   let wrapper = shallowMount(Hello);
-  it("Demo02HelloWorld.onLog()", async () => {
+  it("Demo02HelloWorld.loadData()", async () => {
     expect(wrapper.classes()).toContain("hello");
-    console.log("测试打印方法");
-    await (wrapper.vm as any).onLog();
-    console.log("打印完毕");
+    await (wrapper.vm as any).loadData();
   });
 });
 
@@ -74,6 +72,7 @@ describe("模拟mock api调用；", () => {
   });
   it("真实请求模块模拟", async () => {
     let w1 = shallowMount(Home);
+    await (w1.vm as any).loadData();
     await w1.vm.$nextTick();
     expect(w1.html()).toContain("__mocks__.api.netConfig");
   });
@@ -82,20 +81,26 @@ describe("模拟mock api调用；", () => {
 // 测试表单的提交事件。
 describe("测试表单的提交事件。", () => {
   const wrapper = shallowMount(Form);
-  it("input name", () => {
-    const inputNode = wrapper.find('input[type="text"]');
+  it("input user", async () => {
+    const inputNode = wrapper.find(".input-user");
+    expect(inputNode.exists()).toBe(true);
     inputNode.setValue("wangjia");
-    inputNode.trigger("change");
-    expect(inputNode.element.nodeValue).toContain("wangjia");
+    expect((inputNode.element as any).value).toContain("wangjia");
   });
   it("input pwd", () => {
     const inputNode = wrapper.find('input[type="password"]');
     inputNode.setValue("123456");
-    inputNode.trigger("change");
-    expect(inputNode.element.nodeValue).toBe("123456");
+    expect((inputNode.element as any).value).toBe("123456");
   });
-  it("input pwd", () => {
+  it("input remember", () => {
     const inputNode = wrapper.find('input[type="checkbox"]');
-    expect(inputNode.element.nodeValue).toBe(true);
+    inputNode.setChecked();
+    expect((inputNode.element as any).checked).toBe(true);
+  });
+  it("input button", async () => {
+    const inputNode = wrapper.find("button");
+    await inputNode.trigger("click");
+    expect(wrapper.vm.$data.submitRes.user).toContain("__mocks__.api.user");
+    expect(wrapper.vm.$data.submitRes.pwd).toContain("__mocks__.api.pwd");
   });
 });

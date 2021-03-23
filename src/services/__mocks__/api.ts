@@ -17,6 +17,20 @@ export const netConfig = async function() {
   };
 };
 
+export const submitForm = async function(
+  user: string,
+  password: string,
+  rememberPwd: boolean
+) {
+  return {
+    status: 200,
+    data: {
+      user: "__mocks__.api.user",
+      pwd: "__mocks__.api.pwd",
+    },
+  };
+};
+
 // 调用情况
 // Matcher error: received value must be a mock or spy function
 // 只有 mock/spy 函数是才可获取调用情况

@@ -24,19 +24,21 @@ import { netConfig } from "@/services/api";
 export default class Home extends Vue {
   constructor() {
     super();
-    this.load();
+    console.log("🚀 ~ file: Home.vue ~ line 27 constructor");
   }
   private emitString = "emitString Def";
-
   private host = "";
 
-  async load() {
+  async onLoad() {
+    console.log("🚀 ~ file: Home.vue ~ line 33 onLoad");
+  }
+
+  async loadData() {
     const { data } = await netConfig();
     this.host = data.host;
   }
 
   change(str: string): void {
-    console.log("🚀 ~ file: Home.vue ~ line 29 ~ Home ~ change ~ str", str);
     this.emitString = str;
   }
 }
